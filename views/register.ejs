@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi pagina web</title>
+    <!-- css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">    
+</head>
+<body>
+    <div class="container">
+        </br>
+        <nav class="navbar navbar-expand-lg bg-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand text-white" href="/">Inicio</a>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/login">login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/register">registrarse</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                </div>
+            </div>
+        </nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <br>
+            <% if( typeof validaciones != 'undefined') { %>
+                <% validaciones.forEach( (element) => { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong><%= element.msg %></strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% }) %>                        
+            <% } %>
+        </div>
+        <div class="col-md-6">
+            </br>
+            <div class="card">
+                <div class="card-header">
+                    Registrarse
+                </div>
+                <div class="card-body">
+                    <!--enctype="multipart/form-data" no puedo usarlo con archivos al parecer-->
+                    <form action="/register" method="POST" >
+                        </br>
+                        <!-- Grupo: Usuario -->
+                        <h6> Usuario: </h6>
+                        <input class="form-control" type="text" name="user" id="user" value="<% if (typeof valores != "undefined")  { %><%= valores.user %><% } %>">
+                        
+                        <h6> Nombre: </h6>
+                        <input class="form-control" type="text" name="name" id="name" value="<% if (typeof valores != "undefined")  { %><%= valores.name %><% } %>">
+                        
+                        <h6> Email: </h6>
+                        <input class="form-control" type="text" name="email" id="email" value="<% if (typeof valores != "undefined")  { %><%= valores.email %><% } %>">
+                       
+                        <h6> Contraseña: </h6>
+                        <input class="form-control" type="password" name="pass" id="pass">
+                       
+                        <h6> Confirmar Contraseña: </h6>
+                        <input class="form-control" type="password" name="pass2" id="pass2">
+                        <h6> Imagen de la noticia: </h6><input type="file" class="form-control" name="imagen_publicacion" accept="image/png, image/jpeg">
+                        </br>
+                        <input type="submit" class="btn btn-success" value="Enviar">
+                    </form>
+                    
+                </div>
+                <div class="card-footer text-muted">
+                    Pie de pagina
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div> 
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<% if (typeof alert != "undefined")  { %>
+    <script>
+     Swal.fire({
+       title:'<%= alertTitle %>',
+       text:'<%= alertMessage %>',
+       icon:'<%= alertIcon %>',
+       showConfirmButton: <%= showConfirmButton %>,
+       timer: <%= timer %>
+     }).then(()=>{
+        window.location='<%= ruta %>'
+    })
+    </script>
+<% } %>
+<%- include('layouts/footer') %>
